@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json",
   "id": "shikimori",
   "name": "Shikimori",
   "version": "1.0.0",

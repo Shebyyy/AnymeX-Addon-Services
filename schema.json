@@ -1,0 +1,291 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json",
+  "title": "AnymeX Tracker Add-on Manifest",
+  "description": "Validation schema for community tracker and metadata service manifests in AnymeX.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "author",
+    "capabilities",
+    "auth",
+    "api",
+    "endpoints"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "URI pointing to this JSON schema for IDE autocomplete and validation."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$",
+      "description": "Unique identifier for the add-on (e.g. kitsu, shikimori, trakt)."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the service shown in the UI."
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of this manifest (e.g. 1.0.0)."
+    },
+    "author": {
+      "type": "string",
+      "description": "Author or maintainer of this add-on manifest."
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description of the service and capabilities."
+    },
+    "color": {
+      "type": "string",
+      "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3}|[A-Fa-f0-9]{8})$",
+      "description": "Branding hex color code (e.g. #FD6585)."
+    },
+    "icon": {
+      "type": "string",
+      "format": "uri",
+      "description": "Remote URL to a favicon or icon image."
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "anime",
+          "manga"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Media categories supported by this service."
+    },
+    "auth": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "oauth2",
+            "token",
+            "credentials"
+          ],
+          "description": "Authentication method used by the service."
+        },
+        "auth_url": {
+          "type": "string",
+          "description": "OAuth2 web authorization URL (supports {client_id}, {redirect_uri})."
+        },
+        "token_url": {
+          "type": "string",
+          "description": "OAuth2 token exchange URL."
+        },
+        "redirect_uri": {
+          "type": "string",
+          "description": "Redirect URI for OAuth2 callback (default: anymex://callback)."
+        },
+        "client_id": {
+          "type": "string",
+          "description": "OAuth2 client ID if public or embedded."
+        },
+        "client_secret": {
+          "type": "string",
+          "description": "OAuth2 client secret if public or embedded."
+        },
+        "token_response_path": {
+          "type": "string",
+          "description": "Dot-path to extract the access token from the token exchange response (default: access_token)."
+        },
+        "refresh_token_path": {
+          "type": "string",
+          "description": "Dot-path to extract the refresh token from response (default: refresh_token)."
+        },
+        "instructions_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Help URL opened in browser to explain how user can obtain their API token."
+        },
+        "login_url": {
+          "type": "string",
+          "description": "POST endpoint URL for username/password login."
+        },
+        "body_template": {
+          "type": "object",
+          "description": "JSON payload template for credentials login (supports {username}, {password})."
+        }
+      },
+      "description": "Authentication configuration for user accounts."
+    },
+    "api": {
+      "type": "object",
+      "required": [
+        "base_url"
+      ],
+      "properties": {
+        "base_url": {
+          "type": "string",
+          "description": "Base URL prepended to all relative endpoint paths."
+        },
+        "headers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "HTTP request headers sent with all requests."
+        },
+        "content_type": {
+          "type": "string",
+          "description": "Default Content-Type header."
+        }
+      },
+      "description": "Global API configuration."
+    },
+    "endpoints": {
+      "type": "object",
+      "properties": {
+        "home_sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title",
+              "url"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Display title for the home carousel."
+              },
+              "url": {
+                "type": "string",
+                "description": "API route relative to base_url."
+              },
+              "is_anime": {
+                "type": "bool",
+                "description": "Whether items are anime (true) or manga (false)."
+              },
+              "variant": {
+                "type": "string",
+                "enum": [
+                  "regular",
+                  "cover",
+                  "big"
+                ],
+                "description": "Card display style."
+              },
+              "items_path": {
+                "type": "string",
+                "description": "Dot-path to the array of items in the API response."
+              }
+            }
+          },
+          "description": "Carousels displayed on the AnymeX home feed."
+        },
+        "search": {
+          "$ref": "#/definitions/endpoint",
+          "description": "Endpoint for keyword search (supports {query}, {page}, {offset}, {limit}, {type})."
+        },
+        "details": {
+          "$ref": "#/definitions/endpoint",
+          "description": "Endpoint for media details (supports {id}, {type})."
+        },
+        "user_profile": {
+          "$ref": "#/definitions/endpoint",
+          "description": "Endpoint to fetch profile of logged-in user."
+        },
+        "user_library": {
+          "$ref": "#/definitions/endpoint",
+          "description": "Endpoint to fetch user watch/reading list (supports {userId}, {type}, {status})."
+        },
+        "update_entry": {
+          "$ref": "#/definitions/endpoint",
+          "description": "Endpoint to update watch/reading progress (supports {entryId}, {progress}, {status}, {score})."
+        },
+        "delete_entry": {
+          "$ref": "#/definitions/endpoint",
+          "description": "Endpoint to delete an entry from user library (supports {entryId})."
+        }
+      },
+      "description": "Definitions for all API routes called by AnymeX."
+    },
+    "status_map": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "enum": [
+          "CURRENT",
+          "PLANNING",
+          "COMPLETED",
+          "PAUSED",
+          "DROPPED",
+          "REPEATING"
+        ]
+      },
+      "description": "Maps third-party status strings to AnymeX canonical statuses."
+    },
+    "reverse_status_map": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Maps AnymeX canonical statuses (CURRENT, PLANNING, etc.) back to third-party status strings."
+    }
+  },
+  "definitions": {
+    "endpoint": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Endpoint path with optional variable placeholders (e.g. {query}, {page}, {limit}, {offset})."
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE"
+          ],
+          "default": "GET",
+          "description": "HTTP method."
+        },
+        "response_path": {
+          "type": "string",
+          "description": "Dot-path to extract the target data object from response."
+        },
+        "items_path": {
+          "type": "string",
+          "description": "Dot-path to extract an array of items from response."
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 20,
+          "description": "Number of items per page for pagination."
+        },
+        "mapping": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Field mapping rules using dot-notation, arrays, and fallback operators (||)."
+        },
+        "body_template": {
+          "type": "object",
+          "description": "JSON payload template for mutation requests."
+        }
+      }
+    }
+  }
+}
