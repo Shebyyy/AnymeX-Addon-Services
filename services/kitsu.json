@@ -6,7 +6,7 @@
   "author": "AnymeX Community",
   "description": "Track and discover anime and manga on Kitsu.io",
   "color": "#FD6585",
-  "icon": "https://avatars.githubusercontent.com/u/7648796?s=200",
+  "icon": "https://kitsu.io/favicon.ico",
   "capabilities": [
     "anime",
     "manga"
