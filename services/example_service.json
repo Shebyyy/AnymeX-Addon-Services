@@ -13,6 +13,8 @@
   ],
   "auth": {
     "type": "oauth2",
+    "client_id": "YOUR_CLIENT_ID",
+    "client_secret": "YOUR_CLIENT_SECRET",
     "auth_url": "https://example.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=user_data",
     "token_url": "https://example.com/oauth/token",
     "redirect_uri": "anymex://callback",
