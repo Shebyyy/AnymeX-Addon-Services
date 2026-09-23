@@ -25,19 +25,25 @@ for (const file of files) {
       continue;
     }
 
-    addons.push({
+    const item = {
       id: content.id,
       name: content.name,
       version: content.version,
-      author: content.author || 'AnymeX Community',
+      author: content.author || 'Sheby',
       description: content.description || '',
       icon: content.icon || '',
       color: content.color || '#FD6585',
       capabilities: content.capabilities || [],
       auth_type: (content.auth && content.auth.type) || content.auth_type || 'none',
       manifest_url: `https://raw.githubusercontent.com/${repo}/${branch}/services/${file}`
-    });
-    console.log(`Indexed addon: ${content.name} (v${content.version})`);
+    };
+
+    if (content.author_avatar) {
+      item.author_avatar = content.author_avatar;
+    }
+
+    addons.push(item);
+    console.log(`Indexed addon: ${content.name} (v${content.version}) by ${item.author}`);
   } catch (err) {
     console.error(`Error parsing ${file}:`, err.message);
     process.exit(1);

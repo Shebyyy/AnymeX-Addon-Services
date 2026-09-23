@@ -3,7 +3,7 @@
   "id": "shikimori",
   "name": "Shikimori",
   "version": "1.0.0",
-  "author": "AnymeX Community",
+  "author": "Sheby",
   "description": "Track anime and manga on Shikimori.one with OAuth2 support",
   "color": "#3282B8",
   "icon": "https://shikimori.one/favicon.ico",
@@ -132,5 +132,6 @@
     "PAUSED": "on_hold",
     "DROPPED": "dropped",
     "REPEATING": "rewatching"
-  }
+  },
+  "author_avatar": "https://avatars.githubusercontent.com/u/83452219?v=4"
 }

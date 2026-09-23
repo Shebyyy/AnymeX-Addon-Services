@@ -3,7 +3,7 @@
   "id": "kitsu",
   "name": "Kitsu",
   "version": "1.0.2",
-  "author": "AnymeX Community",
+  "author": "Sheby",
   "description": "Track and discover anime and manga on Kitsu.io",
   "color": "#FD6585",
   "icon": "https://kitsu.io/favicon.ico",
@@ -150,5 +150,6 @@
     "COMPLETED": "completed",
     "PAUSED": "on_hold",
     "DROPPED": "dropped"
-  }
+  },
+  "author_avatar": "https://avatars.githubusercontent.com/u/83452219?v=4"
 }

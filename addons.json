@@ -7,7 +7,7 @@
       "id": "kitsu",
       "name": "Kitsu",
       "version": "1.0.2",
-      "author": "AnymeX Community",
+      "author": "Sheby",
       "description": "Track and discover anime and manga on Kitsu.io",
       "icon": "https://kitsu.io/favicon.ico",
       "color": "#FD6585",
@@ -16,13 +16,14 @@
         "manga"
       ],
       "auth_type": "credentials",
-      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/kitsu.json"
+      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/kitsu.json",
+      "author_avatar": "https://avatars.githubusercontent.com/u/83452219?v=4"
     },
     {
       "id": "shikimori",
       "name": "Shikimori",
       "version": "1.0.0",
-      "author": "AnymeX Community",
+      "author": "Sheby",
       "description": "Track anime and manga on Shikimori.one with OAuth2 support",
       "icon": "https://shikimori.one/favicon.ico",
       "color": "#3282B8",
@@ -31,7 +32,8 @@
         "manga"
       ],
       "auth_type": "oauth2",
-      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/shikimori.json"
+      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/shikimori.json",
+      "author_avatar": "https://avatars.githubusercontent.com/u/83452219?v=4"
     }
   ]
 }
