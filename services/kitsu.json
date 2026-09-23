@@ -53,7 +53,7 @@
       }
     ],
     "search": {
-      "url": "/{type}?filter[text]={query}&page[offset]={offset}&page[limit]=20",
+      "url": "/{type}?filter[text]={query}&page[offset]={offset}&page[limit]={limit}",
       "method": "GET",
       "items_path": "data",
       "mapping": {
@@ -68,7 +68,8 @@
         "rating": "attributes.averageRating",
         "status": "attributes.status",
         "popularity": "attributes.userCount"
-      }
+      },
+      "limit": 20
     },
     "details": {
       "url": "/{type}/{id}",

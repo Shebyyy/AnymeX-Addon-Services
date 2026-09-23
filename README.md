@@ -17,42 +17,21 @@ This repository hosts community-contributed tracking and metadata services (e.g.
 
 ---
 
-## 🛠 Adding a New Service
+## 📚 Documentation & Examples
+
+- **[Full Specification Document (SPECIFICATION.md)](SPECIFICATION.md)**: Complete reference of all manifest options, auth schemes, endpoint configurations, fallback mapping chains, and status maps.
+- **[Comprehensive Example Manifest (services/example_service.json)](services/example_service.json)**: Fully populated template demonstrating every capability.
+- **[Kitsu Manifest (services/kitsu.json)](services/kitsu.json)**: Working production manifest for Kitsu.io.
+- **[Shikimori Manifest (services/shikimori.json)](services/shikimori.json)**: Working production manifest for Shikimori.one with OAuth2.
+
+---
+
+## 🛠️ Adding a New Service
 
 To contribute a new service:
 
-1. Create a JSON manifest in `services/<service-id>.json`.
-2. Add your service entry to `addons.json`.
-3. Submit a Pull Request!
-
-### Manifest Schema Overview
-
-```json
-{
-  "id": "my_tracker",
-  "name": "My Tracker",
-  "version": "1.0.0",
-  "author": "Your Name",
-  "description": "Description of the service",
-  "color": "#HEX_COLOR",
-  "icon": "https://example.com/favicon.ico",
-  "capabilities": ["anime", "manga"],
-  "auth": {
-    "type": "oauth2 | token | credentials"
-  },
-  "api": {
-    "base_url": "https://api.example.com"
-  },
-  "endpoints": {
-    "home_sections": [...],
-    "search": { ... },
-    "details": { ... },
-    "user_profile": { ... },
-    "user_library": { ... },
-    "update_entry": { ... }
-  },
-  "status_map": {
-    "remote_status": "CURRENT | PLANNING | COMPLETED | PAUSED | DROPPED"
-  }
-}
-```
+1. Copy [`services/example_service.json`](services/example_service.json) to `services/<service-id>.json`.
+2. Configure your service API endpoints and dynamic mappings according to [SPECIFICATION.md](SPECIFICATION.md).
+3. Test your manifest inside AnymeX using **Sideload Add-on** (paste raw JSON or test URL).
+4. Register your add-on in [`addons.json`](addons.json).
+5. Open a Pull Request!

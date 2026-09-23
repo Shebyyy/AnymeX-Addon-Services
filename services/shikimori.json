@@ -46,7 +46,7 @@
       }
     ],
     "search": {
-      "url": "/{type}?search={query}&page={page}&limit=20",
+      "url": "/{type}?search={query}&page={page}&limit={limit}",
       "method": "GET",
       "mapping": {
         "id": "id",
@@ -58,7 +58,8 @@
         "totalEpisodes": "episodes",
         "totalChapters": "chapters",
         "premiered": "aired_on"
-      }
+      },
+      "limit": 20
     },
     "details": {
       "url": "/{type}/{id}",

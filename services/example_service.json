@@ -1,0 +1,140 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json",
+  "id": "example_service",
+  "name": "Example Tracker",
+  "version": "1.0.0",
+  "author": "AnymeX Team",
+  "description": "Comprehensive reference template demonstrating every feature of AnymeX Tracker Add-on manifests.",
+  "color": "#6C5CE7",
+  "icon": "https://example.com/logo.png",
+  "capabilities": [
+    "anime",
+    "manga"
+  ],
+  "auth": {
+    "type": "oauth2",
+    "auth_url": "https://example.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=user_data",
+    "token_url": "https://example.com/oauth/token",
+    "redirect_uri": "anymex://callback",
+    "token_response_path": "access_token",
+    "refresh_token_path": "refresh_token"
+  },
+  "api": {
+    "base_url": "https://api.example.com/v1",
+    "headers": {
+      "Accept": "application/json",
+      "User-Agent": "AnymeX-Addon/1.0"
+    }
+  },
+  "endpoints": {
+    "home_sections": [
+      {
+        "title": "Trending Anime",
+        "url": "/trending/anime?limit=20",
+        "is_anime": true,
+        "variant": "regular",
+        "items_path": "results"
+      },
+      {
+        "title": "Popular Manga",
+        "url": "/popular/manga?limit=20",
+        "is_anime": false,
+        "variant": "cover",
+        "items_path": "results"
+      }
+    ],
+    "search": {
+      "url": "/search/{type}?q={query}&page={page}&offset={offset}&limit={limit}",
+      "method": "GET",
+      "items_path": "results",
+      "limit": 20,
+      "mapping": {
+        "id": "id",
+        "title": "title.english || title.romaji || title.userPreferred",
+        "romajiTitle": "title.romaji || title.native",
+        "poster": "images.poster.large || images.poster.medium",
+        "cover": "images.banner.original || images.banner.large",
+        "description": "synopsis || description",
+        "rating": "score.average",
+        "status": "status",
+        "totalEpisodes": "episodes_count",
+        "totalChapters": "chapters_count",
+        "premiered": "release_date",
+        "popularity": "stats.favorites"
+      }
+    },
+    "details": {
+      "url": "/media/{id}?type={type}",
+      "method": "GET",
+      "response_path": "data",
+      "mapping": {
+        "id": "id",
+        "title": "title.english || title.romaji || title.userPreferred",
+        "romajiTitle": "title.romaji || title.native",
+        "poster": "images.poster.large || images.poster.medium",
+        "cover": "images.banner.original || images.banner.large",
+        "description": "synopsis || description",
+        "rating": "score.average",
+        "status": "status",
+        "totalEpisodes": "episodes_count",
+        "totalChapters": "chapters_count",
+        "premiered": "release_date",
+        "genres": "genres",
+        "duration": "runtime_minutes",
+        "trailer": "media.trailer_url"
+      }
+    },
+    "user_profile": {
+      "url": "/users/me",
+      "method": "GET",
+      "response_path": "data",
+      "mapping": {
+        "id": "id",
+        "name": "username",
+        "avatar": "profile.avatar_url",
+        "banner": "profile.banner_url"
+      }
+    },
+    "user_library": {
+      "url": "/users/{userId}/list?type={type}&status={status}",
+      "method": "GET",
+      "items_path": "entries",
+      "mapping": {
+        "id": "entry_id",
+        "mediaId": "media.id",
+        "progress": "progress_count",
+        "status": "status",
+        "score": "user_rating"
+      }
+    },
+    "update_entry": {
+      "url": "/entries/{entryId}",
+      "method": "PATCH",
+      "body_template": {
+        "progress": "{progress}",
+        "status": "{status}",
+        "score": "{score}"
+      }
+    },
+    "delete_entry": {
+      "url": "/entries/{entryId}",
+      "method": "DELETE"
+    }
+  },
+  "status_map": {
+    "watching": "CURRENT",
+    "reading": "CURRENT",
+    "plan_to_watch": "PLANNING",
+    "plan_to_read": "PLANNING",
+    "completed": "COMPLETED",
+    "on_hold": "PAUSED",
+    "dropped": "DROPPED"
+  },
+  "reverse_status_map": {
+    "CURRENT": "watching",
+    "PLANNING": "plan_to_watch",
+    "COMPLETED": "completed",
+    "PAUSED": "on_hold",
+    "DROPPED": "dropped"
+  }
+}
