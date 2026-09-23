@@ -132,6 +132,5 @@
     "PAUSED": "on_hold",
     "DROPPED": "dropped",
     "REPEATING": "rewatching"
-  },
-  "author_avatar": "https://avatars.githubusercontent.com/u/83452219?v=4"
+  }
 }

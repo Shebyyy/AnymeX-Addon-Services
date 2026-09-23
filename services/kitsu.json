@@ -150,6 +150,5 @@
     "COMPLETED": "completed",
     "PAUSED": "on_hold",
     "DROPPED": "dropped"
-  },
-  "author_avatar": "https://avatars.githubusercontent.com/u/83452219?v=4"
+  }
 }
