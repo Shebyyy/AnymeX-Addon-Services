@@ -1,0 +1,132 @@
+{
+  "id": "shikimori",
+  "name": "Shikimori",
+  "version": "1.0.0",
+  "author": "AnymeX Community",
+  "description": "Track anime and manga on Shikimori.one with OAuth2 support",
+  "color": "#3282B8",
+  "icon": "https://shikimori.one/favicon.ico",
+  "capabilities": [
+    "anime",
+    "manga"
+  ],
+  "auth": {
+    "type": "oauth2",
+    "auth_url": "https://shikimori.one/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=user_rates",
+    "token_url": "https://shikimori.one/oauth/token",
+    "redirect_uri": "anymex://callback",
+    "token_response_path": "access_token",
+    "refresh_token_path": "refresh_token"
+  },
+  "api": {
+    "base_url": "https://shikimori.one/api",
+    "headers": {
+      "User-Agent": "AnymeX-Client"
+    }
+  },
+  "endpoints": {
+    "home_sections": [
+      {
+        "title": "Trending Anime",
+        "url": "/animes?order=popularity&limit=20",
+        "is_anime": true,
+        "variant": "regular"
+      },
+      {
+        "title": "Top Airing Anime",
+        "url": "/animes?order=ranked&status=ongoing&limit=20",
+        "is_anime": true,
+        "variant": "regular"
+      },
+      {
+        "title": "Popular Manga",
+        "url": "/mangas?order=popularity&limit=20",
+        "is_anime": false,
+        "variant": "regular"
+      }
+    ],
+    "search": {
+      "url": "/{type}?search={query}&page={page}&limit=20",
+      "method": "GET",
+      "mapping": {
+        "id": "id",
+        "title": "name",
+        "romajiTitle": "russian || name",
+        "poster": "image.original",
+        "rating": "score",
+        "status": "status",
+        "totalEpisodes": "episodes",
+        "totalChapters": "chapters",
+        "premiered": "aired_on"
+      }
+    },
+    "details": {
+      "url": "/{type}/{id}",
+      "method": "GET",
+      "mapping": {
+        "id": "id",
+        "title": "name",
+        "romajiTitle": "russian || name",
+        "poster": "image.original",
+        "description": "description || description_source",
+        "rating": "score",
+        "status": "status",
+        "totalEpisodes": "episodes",
+        "totalChapters": "chapters",
+        "premiered": "aired_on",
+        "duration": "duration"
+      }
+    },
+    "user_profile": {
+      "url": "/users/whoami",
+      "method": "GET",
+      "mapping": {
+        "id": "id",
+        "name": "nickname",
+        "avatar": "avatar"
+      }
+    },
+    "user_library": {
+      "url": "/v2/user_rates?user_id={userId}&target_type={targetType}&status={status}",
+      "method": "GET",
+      "mapping": {
+        "id": "id",
+        "mediaId": "target_id",
+        "progress": "episodes || chapters",
+        "status": "status",
+        "score": "score"
+      }
+    },
+    "update_entry": {
+      "url": "/v2/user_rates/{entryId}",
+      "method": "PATCH",
+      "body_template": {
+        "user_rate": {
+          "episodes": "{progress}",
+          "status": "{status}",
+          "score": "{score}"
+        }
+      }
+    },
+    "delete_entry": {
+      "url": "/v2/user_rates/{entryId}",
+      "method": "DELETE"
+    }
+  },
+  "status_map": {
+    "watching": "CURRENT",
+    "planned": "PLANNING",
+    "completed": "COMPLETED",
+    "on_hold": "PAUSED",
+    "dropped": "DROPPED",
+    "rewatching": "REPEATING"
+  },
+  "reverse_status_map": {
+    "CURRENT": "watching",
+    "PLANNING": "planned",
+    "COMPLETED": "completed",
+    "PAUSED": "on_hold",
+    "DROPPED": "dropped",
+    "REPEATING": "rewatching"
+  }
+}

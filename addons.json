@@ -1,0 +1,37 @@
+{
+  "name": "AnymeX Official Addon Services",
+  "version": 1,
+  "description": "Community tracking and metadata services repository for AnymeX",
+  "addons": [
+    {
+      "id": "kitsu",
+      "name": "Kitsu",
+      "version": "1.0.0",
+      "author": "AnymeX Community",
+      "description": "Discover and track anime and manga on Kitsu.io",
+      "icon": "https://kitsu.io/favicon.ico",
+      "color": "#FD6585",
+      "capabilities": [
+        "anime",
+        "manga"
+      ],
+      "auth_type": "credentials",
+      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/kitsu.json"
+    },
+    {
+      "id": "shikimori",
+      "name": "Shikimori",
+      "version": "1.0.0",
+      "author": "AnymeX Community",
+      "description": "Russian anime and manga tracking service with OAuth2 support",
+      "icon": "https://shikimori.one/favicon.ico",
+      "color": "#3282B8",
+      "capabilities": [
+        "anime",
+        "manga"
+      ],
+      "auth_type": "oauth2",
+      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/shikimori.json"
+    }
+  ]
+}

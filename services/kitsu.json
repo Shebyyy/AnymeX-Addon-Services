@@ -1,0 +1,148 @@
+{
+  "id": "kitsu",
+  "name": "Kitsu",
+  "version": "1.0.0",
+  "author": "AnymeX Community",
+  "description": "Track and discover anime and manga on Kitsu.io",
+  "color": "#FD6585",
+  "icon": "https://kitsu.io/favicon.ico",
+  "capabilities": [
+    "anime",
+    "manga"
+  ],
+  "auth": {
+    "type": "credentials",
+    "login_url": "https://kitsu.io/api/oauth/token",
+    "body_template": {
+      "grant_type": "password",
+      "username": "{username}",
+      "password": "{password}"
+    },
+    "token_response_path": "access_token",
+    "refresh_token_path": "refresh_token"
+  },
+  "api": {
+    "base_url": "https://kitsu.io/api/edge",
+    "headers": {
+      "Accept": "application/vnd.api+json",
+      "Content-Type": "application/vnd.api+json"
+    }
+  },
+  "endpoints": {
+    "home_sections": [
+      {
+        "title": "Trending Anime",
+        "url": "/trending/anime",
+        "is_anime": true,
+        "variant": "regular",
+        "items_path": "data"
+      },
+      {
+        "title": "Top Rated Anime",
+        "url": "/anime?sort=-averageRating&page[limit]=20",
+        "is_anime": true,
+        "variant": "regular",
+        "items_path": "data"
+      },
+      {
+        "title": "Trending Manga",
+        "url": "/trending/manga",
+        "is_anime": false,
+        "variant": "regular",
+        "items_path": "data"
+      }
+    ],
+    "search": {
+      "url": "/{type}?filter[text]={query}&page[offset]={offset}&page[limit]=20",
+      "method": "GET",
+      "items_path": "data",
+      "mapping": {
+        "id": "id",
+        "title": "attributes.canonicalTitle || attributes.titles.en",
+        "romajiTitle": "attributes.titles.en_jp || attributes.canonicalTitle",
+        "poster": "attributes.posterImage.medium || attributes.posterImage.original",
+        "cover": "attributes.coverImage.original || attributes.coverImage.large",
+        "description": "attributes.synopsis",
+        "totalEpisodes": "attributes.episodeCount",
+        "totalChapters": "attributes.chapterCount",
+        "rating": "attributes.averageRating",
+        "status": "attributes.status",
+        "popularity": "attributes.userCount"
+      }
+    },
+    "details": {
+      "url": "/{type}/{id}",
+      "method": "GET",
+      "response_path": "data",
+      "mapping": {
+        "id": "id",
+        "title": "attributes.canonicalTitle || attributes.titles.en",
+        "romajiTitle": "attributes.titles.en_jp || attributes.canonicalTitle",
+        "poster": "attributes.posterImage.large || attributes.posterImage.original",
+        "cover": "attributes.coverImage.original || attributes.coverImage.large",
+        "description": "attributes.synopsis",
+        "totalEpisodes": "attributes.episodeCount",
+        "totalChapters": "attributes.chapterCount",
+        "rating": "attributes.averageRating",
+        "status": "attributes.status",
+        "popularity": "attributes.userCount",
+        "premiered": "attributes.startDate"
+      }
+    },
+    "user_profile": {
+      "url": "/users?filter[self]=true",
+      "method": "GET",
+      "response_path": "data[0]",
+      "mapping": {
+        "id": "id",
+        "name": "attributes.name",
+        "avatar": "attributes.avatar.medium || attributes.avatar.original",
+        "banner": "attributes.coverImage.original"
+      }
+    },
+    "user_library": {
+      "url": "/users/{userId}/library-entries?filter[status]={status}&include=anime,manga&page[limit]=50",
+      "method": "GET",
+      "items_path": "data",
+      "mapping": {
+        "id": "id",
+        "mediaId": "relationships.anime.data.id || relationships.manga.data.id",
+        "progress": "attributes.progress",
+        "status": "attributes.status",
+        "score": "attributes.ratingTwenty"
+      }
+    },
+    "update_entry": {
+      "url": "/library-entries/{entryId}",
+      "method": "PATCH",
+      "body_template": {
+        "data": {
+          "id": "{entryId}",
+          "type": "libraryEntries",
+          "attributes": {
+            "progress": "{progress}",
+            "status": "{status}"
+          }
+        }
+      }
+    },
+    "delete_entry": {
+      "url": "/library-entries/{entryId}",
+      "method": "DELETE"
+    }
+  },
+  "status_map": {
+    "current": "CURRENT",
+    "planned": "PLANNING",
+    "completed": "COMPLETED",
+    "on_hold": "PAUSED",
+    "dropped": "DROPPED"
+  },
+  "reverse_status_map": {
+    "CURRENT": "current",
+    "PLANNING": "planned",
+    "COMPLETED": "completed",
+    "PAUSED": "on_hold",
+    "DROPPED": "dropped"
+  }
+}
