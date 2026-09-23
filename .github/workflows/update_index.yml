@@ -1,0 +1,40 @@
+﻿name: Update Addons Index
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'services/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Rebuild addons.json
+        run: node .github/scripts/build_repo.js
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add addons.json
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: auto-update addons.json [skip ci]"
+            git push
+          else
+            echo "No changes in addons.json detected."
+          fi

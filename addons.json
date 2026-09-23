@@ -8,7 +8,7 @@
       "name": "Kitsu",
       "version": "1.0.2",
       "author": "AnymeX Community",
-      "description": "Discover and track anime and manga on Kitsu.io",
+      "description": "Track and discover anime and manga on Kitsu.io",
       "icon": "https://kitsu.io/favicon.ico",
       "color": "#FD6585",
       "capabilities": [
@@ -23,7 +23,7 @@
       "name": "Shikimori",
       "version": "1.0.0",
       "author": "AnymeX Community",
-      "description": "Russian anime and manga tracking service with OAuth2 support",
+      "description": "Track anime and manga on Shikimori.one with OAuth2 support",
       "icon": "https://shikimori.one/favicon.ico",
       "color": "#3282B8",
       "capabilities": [
