@@ -98,7 +98,7 @@
       }
     },
     "user_library": {
-      "url": "/users/{userId}/list?type={type}&status={status}",
+      "url": "/users/{userId}/list?type={type}",
       "method": "GET",
       "items_path": "entries",
       "mapping": {
@@ -106,7 +106,11 @@
         "mediaId": "media.id",
         "progress": "progress_count",
         "status": "status",
-        "score": "user_rating"
+        "score": "user_rating",
+        "title": "media.title || title",
+        "poster": "media.poster || poster || media.image || image",
+        "totalEpisodes": "media.totalEpisodes || totalEpisodes",
+        "totalChapters": "media.totalChapters || totalChapters"
       }
     },
     "update_entry": {
@@ -121,6 +125,19 @@
     "delete_entry": {
       "url": "/entries/{entryId}",
       "method": "DELETE"
+    },
+    "calendar": {
+      "url": "/calendar",
+      "method": "GET",
+      "items_path": "data",
+      "mapping": {
+        "id": "id",
+        "title": "title",
+        "romajiTitle": "romaji_title",
+        "poster": "poster",
+        "episode": "next_episode",
+        "airingAt": "airing_timestamp"
+      }
     }
   },
   "status_map": {

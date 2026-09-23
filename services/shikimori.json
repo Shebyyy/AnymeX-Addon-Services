@@ -91,14 +91,18 @@
       }
     },
     "user_library": {
-      "url": "/v2/user_rates?user_id={userId}&target_type={targetType}&status={status}",
+      "url": "/v2/user_rates?user_id={userId}&target_type={targetType}",
       "method": "GET",
       "mapping": {
         "id": "id",
         "mediaId": "target_id",
         "progress": "episodes || chapters",
         "status": "status",
-        "score": "score"
+        "score": "score",
+        "title": "anime.name || manga.name || anime.russian || manga.russian",
+        "poster": "anime.image.original || manga.image.original || anime.image.preview || manga.image.preview",
+        "totalEpisodes": "anime.episodes",
+        "totalChapters": "manga.chapters"
       }
     },
     "update_entry": {
@@ -115,6 +119,24 @@
     "delete_entry": {
       "url": "/v2/user_rates/{entryId}",
       "method": "DELETE"
+    },
+    "calendar": {
+      "url": "/calendar",
+      "method": "GET",
+      "items_path": "$",
+      "mapping": {
+        "id": "anime.id",
+        "title": "anime.name",
+        "romajiTitle": "anime.russian",
+        "poster": "anime.image.original",
+        "largePoster": "anime.image.preview",
+        "status": "anime.status",
+        "rating": "anime.score",
+        "format": "anime.kind",
+        "aired": "anime.aired_on",
+        "episode": "next_episode",
+        "airingAt": "next_episode_at"
+      }
     }
   },
   "status_map": {

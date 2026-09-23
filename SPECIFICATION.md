@@ -202,11 +202,25 @@ Fetches the user's watch/reading list:
   "mapping": {
     "id": "id",
     "mediaId": "media_id",
+    "title": "media.title || title",
+    "poster": "media.poster || poster",
     "progress": "episodes_watched",
+    "totalEpisodes": "media.totalEpisodes",
+    "totalChapters": "media.totalChapters",
     "status": "status",
     "score": "score"
   }
 }
+```
+
+> [!TIP]
+> Do **not** hardcode status filters like `&status={status}` in `user_library.url` unless the API strictly requires it. By omitting status filters, AnymeX fetches your full library across all statuses in one request, categorizing items automatically via `status_map`.
+
+### User Library UI & Calendar Integration
+When logged into a Tracker Add-on:
+1. **Home Page Lists**: AnymeX displays **ANIME LIST** and/or **MANGA LIST** cards at the top of the Home feed based on `capabilities` (`anime`, `manga`), showing the total count of items in your library. Tapping a card opens the interactive list screen (`AnimeList` / `AnilistMangaList`), categorized by status tabs (`WATCHING`, `COMPLETED`, `PAUSED`, `DROPPED`, `PLANNING`, `ALL`).
+2. **Continue Watching / New Episodes**: AnymeX automatically extracts active anime (`CURRENT` / `WATCHING`) and calculates release dates for airing episodes directly on your home feed.
+3. **Calendar Integration**: Tapping the **Calendar** (available under the **OTHER** button on Home or via Features) lets you filter airing schedules by **My List**. AnymeX correlates entries between the airing calendar and your add-on library by Media ID, MAL ID (e.g. Shikimori), and English / Romaji Titles.
 ```
 
 ### 5.6. `update_entry` & `delete_entry`

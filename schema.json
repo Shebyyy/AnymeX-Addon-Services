@@ -56,7 +56,11 @@
         "type": "string",
         "enum": [
           "anime",
-          "manga"
+          "manga",
+          "novel",
+          "movie",
+          "tv",
+          "all"
         ]
       },
       "uniqueItems": true,
@@ -166,7 +170,7 @@
                 "description": "API route relative to base_url."
               },
               "is_anime": {
-                "type": "bool",
+                "type": "boolean",
                 "description": "Whether items are anime (true) or manga (false)."
               },
               "variant": {
@@ -209,6 +213,10 @@
         "delete_entry": {
           "$ref": "#/definitions/endpoint",
           "description": "Endpoint to delete an entry from user library (supports {entryId})."
+        },
+        "calendar": {
+          "$ref": "#/definitions/endpoint",
+          "description": "Optional endpoint returning an array of upcoming anime schedule/release episodes."
         }
       },
       "description": "Definitions for all API routes called by AnymeX."
