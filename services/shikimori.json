@@ -6,7 +6,7 @@
   "author": "AnymeX Community",
   "description": "Track anime and manga on Shikimori.one with OAuth2 support",
   "color": "#3282B8",
-  "icon": "https://shikimori.one/favicon.ico",
+  "icon": "https://avatars.githubusercontent.com/u/2311894?s=200",
   "capabilities": [
     "anime",
     "manga"
