@@ -103,7 +103,7 @@
       }
     },
     "user_library": {
-      "url": "/users/{userId}/library-entries?filter[status]={status}&include=anime,manga&page[limit]=50",
+      "url": "/users/{userId}/library-entries?filter[kind]={type}&include={type}&page[limit]=50",
       "method": "GET",
       "items_path": "data",
       "mapping": {
