@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json",
   "id": "kitsu",
   "name": "Kitsu",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "AnymeX Community",
   "description": "Track and discover anime and manga on Kitsu.io",
   "color": "#FD6585",
@@ -109,6 +109,10 @@
       "mapping": {
         "id": "id",
         "mediaId": "relationships.anime.data.id || relationships.manga.data.id",
+        "title": "relationships.anime.data.attributes.canonicalTitle || relationships.manga.data.attributes.canonicalTitle || relationships.anime.data.attributes.titles.en || relationships.manga.data.attributes.titles.en",
+        "poster": "relationships.anime.data.attributes.posterImage.medium || relationships.manga.data.attributes.posterImage.medium || relationships.anime.data.attributes.posterImage.original || relationships.manga.data.attributes.posterImage.original",
+        "totalEpisodes": "relationships.anime.data.attributes.episodeCount",
+        "totalChapters": "relationships.manga.data.attributes.chapterCount",
         "progress": "attributes.progress",
         "status": "attributes.status",
         "score": "attributes.ratingTwenty"
