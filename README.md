@@ -20,6 +20,7 @@ This repository hosts community-contributed tracking and metadata services (e.g.
 ## 📚 Documentation & Examples
 
 - **[Full Specification Document (SPECIFICATION.md)](SPECIFICATION.md)**: Complete reference of all manifest options, auth schemes, endpoint configurations, fallback mapping chains, and status maps.
+- **[JSON Schema (schema.json)](schema.json)**: Official JSON Schema Draft-07 for IDE autocomplete, tooltips, and real-time validation.
 - **[Comprehensive Example Manifest (services/example_service.json)](services/example_service.json)**: Fully populated template demonstrating every capability.
 - **[Kitsu Manifest (services/kitsu.json)](services/kitsu.json)**: Working production manifest for Kitsu.io.
 - **[Shikimori Manifest (services/shikimori.json)](services/shikimori.json)**: Working production manifest for Shikimori.one with OAuth2.
@@ -31,7 +32,8 @@ This repository hosts community-contributed tracking and metadata services (e.g.
 To contribute a new service:
 
 1. Copy [`services/example_service.json`](services/example_service.json) to `services/<service-id>.json`.
-2. Configure your service API endpoints and dynamic mappings according to [SPECIFICATION.md](SPECIFICATION.md).
-3. Test your manifest inside AnymeX using **Sideload Add-on** (paste raw JSON or test URL).
-4. Register your add-on in [`addons.json`](addons.json).
-5. Open a Pull Request!
+2. Ensure your file references `"$schema": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json"` at the top for instant IDE feedback.
+3. Configure your service API endpoints and dynamic mappings according to [SPECIFICATION.md](SPECIFICATION.md).
+4. Test your manifest inside AnymeX using **Sideload Add-on** (paste raw JSON or test URL).
+5. Register your add-on in [`addons.json`](addons.json).
+6. Open a Pull Request!
