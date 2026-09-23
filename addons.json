@@ -16,8 +16,7 @@
         "manga"
       ],
       "auth_type": "credentials",
-      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/kitsu.json",
-      "author_avatar": "https://avatars.githubusercontent.com/u/83452219?v=4"
+      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/kitsu.json"
     },
     {
       "id": "shikimori",
@@ -32,8 +31,7 @@
         "manga"
       ],
       "auth_type": "oauth2",
-      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/shikimori.json",
-      "author_avatar": "https://avatars.githubusercontent.com/u/83452219?v=4"
+      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/shikimori.json"
     }
   ]
 }
