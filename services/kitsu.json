@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json",
   "id": "kitsu",
   "name": "Kitsu",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Sheby",
   "description": "Track and discover anime and manga on Kitsu.io",
   "color": "#FD6585",
@@ -103,7 +103,7 @@
       }
     },
     "user_library": {
-      "url": "/users/{userId}/library-entries?filter[kind]={type}&include={type}&page[limit]=50",
+      "url": "/users/{userId}/library-entries?filter[kind]={type}&include={type}&page[limit]=500",
       "method": "GET",
       "items_path": "data",
       "mapping": {
@@ -116,6 +116,33 @@
         "progress": "attributes.progress",
         "status": "attributes.status",
         "score": "attributes.ratingTwenty"
+      }
+    },
+    "create_entry": {
+      "url": "/library-entries",
+      "method": "POST",
+      "body_template": {
+        "data": {
+          "type": "libraryEntries",
+          "attributes": {
+            "status": "{status}",
+            "progress": "{progress}"
+          },
+          "relationships": {
+            "{type}": {
+              "data": {
+                "type": "{type}",
+                "id": "{mediaId}"
+              }
+            },
+            "user": {
+              "data": {
+                "type": "users",
+                "id": "{userId}"
+              }
+            }
+          }
+        }
       }
     },
     "update_entry": {

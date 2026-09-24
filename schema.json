@@ -206,6 +206,10 @@
           "$ref": "#/definitions/endpoint",
           "description": "Endpoint to fetch user watch/reading list (supports {userId}, {type}, {status})."
         },
+        "create_entry": {
+          "$ref": "#/definitions/endpoint",
+          "description": "Endpoint to add a new media to the user's library (supports {userId}, {mediaId}, {type}, {targetType}, {status}, {progress}, {score})."
+        },
         "update_entry": {
           "$ref": "#/definitions/endpoint",
           "description": "Endpoint to update watch/reading progress (supports {entryId}, {progress}, {status}, {score})."

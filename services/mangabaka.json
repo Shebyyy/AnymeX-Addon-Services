@@ -1,0 +1,146 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json",
+  "id": "mangabaka",
+  "name": "MangaBaka",
+  "version": "1.0.0",
+  "author": "Sheby",
+  "description": "Track and discover manga on MangaBaka with OAuth2 support",
+  "color": "#101828",
+  "icon": "https://mangabaka.org/favicon.ico",
+  "capabilities": [
+    "manga"
+  ],
+  "auth": {
+    "type": "oauth2",
+    "client_id": "RIlSLIjrDqqsrGQhPnAlRFTAbqpkPuor",
+    "auth_url": "https://mangabaka.org/auth/oauth2/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=library.read%20library.write%20profile%20offline_access",
+    "token_url": "https://mangabaka.org/auth/oauth2/token",
+    "redirect_uri": "anymex://callback",
+    "token_response_path": "access_token",
+    "refresh_token_path": "refresh_token"
+  },
+  "api": {
+    "base_url": "https://api.mangabaka.org",
+    "headers": {
+      "User-Agent": "AnymeX-Client",
+      "Accept": "application/json"
+    }
+  },
+  "endpoints": {
+    "home_sections": [
+      {
+        "title": "Rising Manga",
+        "url": "/v2/series/discover/rising?limit=20",
+        "is_anime": false,
+        "variant": "regular",
+        "items_path": "data"
+      },
+      {
+        "title": "Hidden Gems",
+        "url": "/v2/series/discover/hidden-gems?limit=20",
+        "is_anime": false,
+        "variant": "regular",
+        "items_path": "data"
+      }
+    ],
+    "search": {
+      "url": "/v2/series/search?q={query}&page={page}&limit={limit}",
+      "method": "GET",
+      "items_path": "data",
+      "mapping": {
+        "id": "id",
+        "title": "title",
+        "romajiTitle": "titles[0].title || title",
+        "poster": "cover.x350 || cover.raw",
+        "cover": "cover.raw || cover.x350",
+        "description": "description",
+        "totalChapters": "total_chapters",
+        "rating": "rating",
+        "status": "status",
+        "popularity": "popularity.global.current"
+      },
+      "limit": 20
+    },
+    "details": {
+      "url": "/v2/series/{id}",
+      "method": "GET",
+      "response_path": "data",
+      "mapping": {
+        "id": "id",
+        "title": "title",
+        "romajiTitle": "titles[0].title || title",
+        "poster": "cover.x350 || cover.raw",
+        "cover": "cover.raw || cover.x350",
+        "description": "description",
+        "totalChapters": "total_chapters",
+        "rating": "rating",
+        "status": "status",
+        "popularity": "popularity.global.current",
+        "premiered": "published.start_date"
+      }
+    },
+    "user_profile": {
+      "url": "/v1/my/profile",
+      "method": "GET",
+      "response_path": "data",
+      "mapping": {
+        "id": "id",
+        "name": "preferred_username || nickname || id"
+      }
+    },
+    "user_library": {
+      "url": "/v2/my/library?limit=100",
+      "method": "GET",
+      "items_path": "data",
+      "mapping": {
+        "id": "entry.id",
+        "mediaId": "entry.series_id || series.id",
+        "title": "series.title",
+        "poster": "series.cover.x350 || series.cover.raw",
+        "totalChapters": "series.total_chapters",
+        "progress": "entry.progress_chapter",
+        "status": "entry.state",
+        "score": "entry.rating"
+      }
+    },
+    "create_entry": {
+      "url": "/v1/my/library/{mediaId}",
+      "method": "PUT",
+      "body_template": {
+        "state": "{status}",
+        "progress_chapter": "{progress}",
+        "rating": "{scoreInt}"
+      }
+    },
+    "update_entry": {
+      "url": "/v1/my/library/{mediaId}",
+      "method": "PUT",
+      "body_template": {
+        "state": "{status}",
+        "progress_chapter": "{progress}",
+        "rating": "{scoreInt}"
+      }
+    },
+    "delete_entry": {
+      "url": "/v1/my/library/{mediaId}",
+      "method": "DELETE"
+    }
+  },
+  "status_map": {
+    "reading": "CURRENT",
+    "plan_to_read": "PLANNING",
+    "completed": "COMPLETED",
+    "paused": "PAUSED",
+    "dropped": "DROPPED",
+    "rereading": "REPEATING",
+    "considering": "PLANNING"
+  },
+  "reverse_status_map": {
+    "CURRENT": "reading",
+    "PLANNING": "plan_to_read",
+    "COMPLETED": "completed",
+    "PAUSED": "paused",
+    "DROPPED": "dropped",
+    "REPEATING": "rereading"
+  }
+}

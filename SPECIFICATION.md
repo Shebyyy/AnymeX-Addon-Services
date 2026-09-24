@@ -122,11 +122,13 @@ Prompts the user with a modal dialog asking for Username and Password.
 | `{limit}` | Search / List | Number of items per page configured in `endpoint.limit` (default: `20`). |
 | `{type}` | Search / Details / Library | `"anime"` or `"manga"`. |
 | `{id}` | Details | Remote media ID. |
-| `{userId}` | Library | Authenticated user ID (extracted from `user_profile`). |
-| `{status}` | Library / Update | Status string (e.g. `"watching"` or canonical `"CURRENT"`). |
-| `{entryId}` | Update / Delete | ID of the library list entry. |
-| `{progress}` | Update Entry | Watched episode or read chapter number. |
-| `{score}` | Update Entry | Rating or score given by user. |
+| `{userId}` | Library / Create | Authenticated user ID (extracted from `user_profile`). |
+| `{mediaId}` | Create Entry | Remote media ID to add to user list. |
+| `{targetType}` | Create / Library | `"Anime"` or `"Manga"` (capitalized). |
+| `{status}` | Library / Create / Update | Status string (e.g. `"watching"` or canonical `"CURRENT"`). |
+| `{entryId}` | Update / Delete | ID of the user's library list entry record. |
+| `{progress}` | Create / Update Entry | Watched episode or read chapter number. |
+| `{score}` | Create / Update Entry | Rating or score given by user. |
 
 ### 5.1. `home_sections`
 Array of carousel sections displayed on the AnymeX home tab:
@@ -220,11 +222,34 @@ Fetches the user's watch/reading list:
 When logged into a Tracker Add-on:
 1. **Home Page Lists**: AnymeX displays **ANIME LIST** and/or **MANGA LIST** cards at the top of the Home feed based on `capabilities` (`anime`, `manga`), showing the total count of items in your library. Tapping a card opens the interactive list screen (`AnimeList` / `AnilistMangaList`), categorized by status tabs (`WATCHING`, `COMPLETED`, `PAUSED`, `DROPPED`, `PLANNING`, `ALL`).
 2. **Continue Watching / New Episodes**: AnymeX automatically extracts active anime (`CURRENT` / `WATCHING`) and calculates release dates for airing episodes directly on your home feed.
-3. **Calendar Integration**: Tapping the **Calendar** (available under the **OTHER** button on Home or via Features) lets you filter airing schedules by **My List**. AnymeX correlates entries between the airing calendar and your add-on library by Media ID, MAL ID (e.g. Shikimori), and English / Romaji Titles.
+### 5.6. `create_entry`, `update_entry` & `delete_entry`
+
+These endpoints manage user library entries on the remote tracking platform.
+
+#### `create_entry`
+Called when adding a media to the user's watchlist/reading list for the first time:
+- Available placeholders: `{userId}`, `{mediaId}`, `{type}` (`"anime"` or `"manga"`), `{targetType}` (`"Anime"` or `"Manga"`), `{status}`, `{progress}`, `{score}`.
+
+```json
+"create_entry": {
+  "url": "/v2/user_rates",
+  "method": "POST",
+  "body_template": {
+    "user_rate": {
+      "user_id": "{userId}",
+      "target_id": "{mediaId}",
+      "target_type": "{targetType}",
+      "status": "{status}",
+      "episodes": "{progress}",
+      "score": "{score}"
+    }
+  }
+}
 ```
 
-### 5.6. `update_entry` & `delete_entry`
-Synchronizes watch/reading progress back to the remote service:
+#### `update_entry`
+Synchronizes watch/reading progress back to the remote service for media already in the library:
+- Available placeholders: `{entryId}` (the user's library list entry record ID), `{progress}`, `{status}`, `{score}`.
 
 ```json
 "update_entry": {
@@ -235,7 +260,14 @@ Synchronizes watch/reading progress back to the remote service:
     "status": "{status}",
     "score": "{score}"
   }
-},
+}
+```
+
+#### `delete_entry`
+Removes an entry from the user's remote library:
+- Available placeholders: `{entryId}`.
+
+```json
 "delete_entry": {
   "url": "/library/{entryId}",
   "method": "DELETE"
