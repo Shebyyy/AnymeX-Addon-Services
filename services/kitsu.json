@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json",
   "id": "kitsu",
   "name": "Kitsu",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Sheby",
   "description": "Track and discover anime and manga on Kitsu.io",
   "color": "#FD6585",
