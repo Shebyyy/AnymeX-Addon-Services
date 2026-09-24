@@ -1,11 +1,53 @@
-﻿const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const servicesDir = path.join(__dirname, '..', '..', 'services');
 const addonsFilePath = path.join(__dirname, '..', '..', 'addons.json');
 
 const repo = process.env.GITHUB_REPOSITORY || 'Shebyyy/AnymeX-Addon-Services';
 const branch = process.env.GITHUB_REF_NAME || 'main';
+
+function bumpPatch(version) {
+  if (!version || typeof version !== 'string') return '1.0.0';
+  const parts = version.split('.').map(n => parseInt(n, 10) || 0);
+  while (parts.length < 3) parts.push(0);
+  parts[2] += 1;
+  return parts.join('.');
+}
+
+function stripVersion(obj) {
+  const copy = { ...obj };
+  delete copy.version;
+  return JSON.stringify(copy);
+}
+
+function getPreviousServiceManifest(relPath) {
+  try {
+    const status = execSync(`git status --porcelain -- "${relPath}"`, {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'ignore']
+    }).trim();
+
+    let commitToCompare = 'HEAD';
+    if (!status) {
+      const prevHash = execSync(`git log -n 1 --skip=1 --pretty=format:%H -- "${relPath}"`, {
+        encoding: 'utf8',
+        stdio: ['pipe', 'pipe', 'ignore']
+      }).trim();
+      if (!prevHash) return null;
+      commitToCompare = prevHash;
+    }
+
+    const raw = execSync(`git show ${commitToCompare}:"${relPath}"`, {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'ignore']
+    });
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
 
 const files = fs.readdirSync(servicesDir).sort();
 const addons = [];
@@ -23,6 +65,19 @@ for (const file of files) {
     if (!content.id || !content.name || !content.version) {
       console.warn(`Warning: ${file} is missing id, name, or version. Skipping.`);
       continue;
+    }
+
+    const previous = getPreviousServiceManifest(`services/${file}`);
+    if (previous && previous.version) {
+      const contentChanged = stripVersion(previous) !== stripVersion(content);
+      const versionUnchanged = previous.version === content.version;
+
+      if (contentChanged && versionUnchanged) {
+        const oldVer = content.version;
+        content.version = bumpPatch(oldVer);
+        fs.writeFileSync(filePath, JSON.stringify(content, null, 2) + '\n');
+        console.log(`Auto-bumped ${file}: v${oldVer} -> v${content.version} (changes detected without version bump)`);
+      }
     }
 
     const item = {

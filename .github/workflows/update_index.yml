@@ -1,4 +1,4 @@
-﻿name: Update Addons Index
+name: Update Addons Index
 
 on:
   push:
@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,10 +33,10 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add addons.json
+          git add addons.json services/
           if ! git diff --staged --quiet; then
-            git commit -m "chore: auto-update addons.json [skip ci]"
+            git commit -m "chore: auto-update addons.json and bump versions [skip ci]"
             git push
           else
-            echo "No changes in addons.json detected."
+            echo "No changes in addons or services detected."
           fi
