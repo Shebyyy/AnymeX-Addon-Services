@@ -6,7 +6,7 @@
     {
       "id": "kitsu",
       "name": "Kitsu",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": "Sheby",
       "description": "Track and discover anime and manga on Kitsu.io",
       "icon": "https://kitsu.io/favicon.ico",
@@ -19,9 +19,23 @@
       "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/kitsu.json"
     },
     {
+      "id": "mangabaka",
+      "name": "MangaBaka",
+      "version": "1.0.0",
+      "author": "Sheby",
+      "description": "Track and discover manga on MangaBaka with OAuth2 support",
+      "icon": "https://mangabaka.org/favicon.ico",
+      "color": "#101828",
+      "capabilities": [
+        "manga"
+      ],
+      "auth_type": "oauth2",
+      "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/mangabaka.json"
+    },
+    {
       "id": "shikimori",
       "name": "Shikimori",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": "Sheby",
       "description": "Track anime and manga on Shikimori.one with OAuth2 support",
       "icon": "https://shikimori.one/favicon.ico",
