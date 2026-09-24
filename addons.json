@@ -21,7 +21,7 @@
     {
       "id": "mangabaka",
       "name": "MangaBaka",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "author": "Sheby",
       "description": "Track and discover manga on MangaBaka with OAuth2 support",
       "icon": "https://mangabaka.org/favicon.ico",
