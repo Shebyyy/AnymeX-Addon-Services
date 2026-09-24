@@ -350,19 +350,4 @@ AnymeX defines 5 canonical media statuses:
 
 1. Create `services/<service-id>.json` using [example_service.json](services/example_service.json) as a starting point.
 2. Test your manifest in AnymeX using **Sideload Add-on** (paste JSON or local URL).
-3. Add your entry to `addons.json`:
-   ```json
-   {
-     "id": "my_service",
-     "name": "My Service",
-     "version": "1.0.0",
-     "author": "Your Name",
-     "description": "Short description",
-     "icon": "https://example.com/icon.png",
-     "color": "#HEX_COLOR",
-     "capabilities": ["anime", "manga"],
-     "auth_type": "oauth2",
-     "manifest_url": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/services/my_service.json"
-   }
-   ```
-4. Open a Pull Request to [AnymeX-Addon-Services](https://github.com/Shebyyy/AnymeX-Addon-Services).
+3. Open a Pull Request to [AnymeX-Addon-Services](https://github.com/Shebyyy/AnymeX-Addon-Services). Once merged, GitHub Actions will automatically index your add-on into `addons.json` and keep versions synchronized!

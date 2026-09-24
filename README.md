@@ -35,5 +35,4 @@ To contribute a new service:
 2. Ensure your file references `"$schema": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json"` at the top for instant IDE feedback.
 3. Configure your service API endpoints and dynamic mappings according to [SPECIFICATION.md](SPECIFICATION.md).
 4. Test your manifest inside AnymeX using **Sideload Add-on** (paste raw JSON or test URL).
-5. Register your add-on in [`addons.json`](addons.json).
-6. Open a Pull Request!
+5. Open a Pull Request! (*`addons.json` and versions are managed automatically via CI*).
