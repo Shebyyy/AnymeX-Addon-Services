@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json",
   "id": "shikimori",
   "name": "Shikimori",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Sheby",
   "description": "Track anime and manga on Shikimori.one with OAuth2 support",
   "color": "#3282B8",
@@ -15,14 +15,14 @@
     "type": "oauth2",
     "client_id": "K6AxApU889CNJMWnOCc9SvYXoOTKf7OKkvWFHG6Wfe4",
     "client_secret": "YNdzWColoACLXBeTCts_JmHzU9RhsZosDIGHuiu_88A",
-    "auth_url": "https://shikimori.one/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=user_rates",
-    "token_url": "https://shikimori.one/oauth/token",
+    "auth_url": "https://shikimori.io/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code&scope=user_rates",
+    "token_url": "https://shikimori.io/oauth/token",
     "redirect_uri": "anymex://callback",
     "token_response_path": "access_token",
     "refresh_token_path": "refresh_token"
   },
   "api": {
-    "base_url": "https://shikimori.one/api",
+    "base_url": "https://shikimori.io/api",
     "headers": {
       "User-Agent": "AnymeX-Client",
       "Accept": "application/json"
@@ -50,7 +50,7 @@
       }
     ],
     "search": {
-      "url": "/{type}?search={query}&page={page}&limit={limit}",
+      "url": "/{type}s?search={query}&page={page}&limit={limit}",
       "method": "GET",
       "mapping": {
         "id": "id",
@@ -66,7 +66,7 @@
       "limit": 20
     },
     "details": {
-      "url": "/{type}/{id}",
+      "url": "/{type}s/{id}",
       "method": "GET",
       "mapping": {
         "id": "id",
@@ -88,7 +88,7 @@
       "mapping": {
         "id": "id",
         "name": "nickname",
-        "avatar": "avatar"
+        "avatar": "image.x80"
       }
     },
     "user_library": {

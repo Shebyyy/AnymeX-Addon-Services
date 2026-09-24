@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/Shebyyy/AnymeX-Addon-Services/main/schema.json",
   "id": "mangabaka",
   "name": "MangaBaka",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Sheby",
   "description": "Track and discover manga on MangaBaka with OAuth2 support",
   "color": "#101828",
@@ -80,12 +80,12 @@
       }
     },
     "user_profile": {
-      "url": "/v1/my/profile",
+      "url": "https://mangabaka.org/auth/oauth2/userinfo",
       "method": "GET",
-      "response_path": "data",
       "mapping": {
-        "id": "id",
-        "name": "preferred_username || nickname || id"
+        "id": "sub",
+        "name": "name || given_name || sub",
+        "avatar": "picture"
       }
     },
     "user_library": {
