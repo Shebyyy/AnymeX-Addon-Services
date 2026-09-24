@@ -24,7 +24,8 @@
   "api": {
     "base_url": "https://shikimori.one/api",
     "headers": {
-      "User-Agent": "AnymeX-Client"
+      "User-Agent": "AnymeX-Client",
+      "Accept": "application/json"
     }
   },
   "endpoints": {
